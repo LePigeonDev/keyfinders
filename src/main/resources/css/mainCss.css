@@ -1,0 +1,368 @@
+/***********************
+ * Thème & variables
+ ***********************/
+.app-root {
+    /* Couleurs “looked-up” réutilisables */
+    -color-bg:        linear-gradient(to bottom, #0e0f13, #141722);
+    -color-surface:   #1c2030;
+    -color-surface-2: #1a1f2b;
+    -color-border:    #2b3450;
+    -color-soft:      #2a3042;
+    -color-text:      #e8ecff;
+    -color-text-dim:  #b8c0e0;
+
+    -color-primary:   #6c7cff;  /* Jouer */
+    -color-primary-2: #5867ff;
+    -color-success:   #29c27f;  /* “Vous avez gagné !” + Rejouer */
+    -color-accent:    #ff7ab6;  /* Valider */
+
+    -shadow-color:    rgba(0, 0, 0, 0.55);
+
+    -radius: 14px;
+
+    -fx-background-color: -color-bg;
+}
+
+/***********************
+ * Container “carte”
+ ***********************/
+.app-root > .vbox {
+    -fx-padding: 28 28 24 28;
+    -fx-background-color: rgba(28, 32, 48, 0.85), linear-gradient(to bottom right, rgba(255,255,255,0.04), rgba(0,0,0,0.05));
+    -fx-background-insets: 0, 0; /* superposition */
+    -fx-background-radius: 18px;
+    -fx-effect: dropshadow(gaussian, -shadow-color, 40, 0.25, 0, 8);
+    -fx-spacing: 16;
+}
+
+/***********************
+ * Titre
+ ***********************/
+.title {
+    -fx-font-size: 28px;
+    -fx-font-weight: 800;
+    -fx-text-fill: -color-text;
+    -fx-effect: dropshadow(gaussian, rgba(108,124,255,0.45), 20, 0.35, 0, 2);
+    -fx-padding: 2 0 8 0;
+    -fx-alignment: center;
+}
+
+/***********************
+ * Zone d’affichage (indice / victoire)
+ ***********************/
+.display-wrapper {
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.display {
+    -fx-background-color: linear-gradient(to bottom, -color-surface, -color-surface-2);
+    -fx-text-fill: -color-text;
+    -fx-font-family: "Consolas", "Cascadia Mono", "Fira Code", monospace;
+    -fx-font-size: 13.5px;
+    -fx-padding: 10 14;
+    -fx-background-radius: 10px;
+    -fx-border-color: -color-border;
+    -fx-border-radius: 10px;
+}
+
+/***********************
+ * Win Label (victoire 🎉)
+ ***********************/
+.win-label {
+    -fx-background-color: linear-gradient(to bottom, #facc15, #eab308); /* doré */
+    -fx-background-radius: 18px;
+    -fx-padding: 16 28;
+    -fx-font-size: 22px;
+    -fx-font-weight: 900;
+    -fx-text-fill: #fffbe6; /* blanc chaud */
+    -fx-text-alignment: center;
+    -fx-alignment: center;
+    -fx-effect: dropshadow(gaussian, rgba(250,204,21,0.6), 30, 0.5, 0, 3);
+    -fx-border-color: rgba(255,255,255,0.4);
+    -fx-border-width: 2;
+    -fx-border-radius: 18px;
+    -fx-letter-spacing: 2px;
+    -fx-text-transform: uppercase;
+}
+
+/* Effet de halo animé façon "gagné" */
+.win-label:visible {
+    -fx-effect: dropshadow(gaussian, rgba(250,204,21,0.8), 35, 0.6, 0, 0);
+}
+
+/* Définition de l’animation pulse (JavaFX CSS trick : via keyframes simulés en pseudo-classes) */
+@keyframes pulse {
+    0%   { -fx-effect: dropshadow(gaussian, rgba(52,211,153,0.5), 20, 0.4, 0, 0); }
+    50%  { -fx-effect: dropshadow(gaussian, rgba(52,211,153,0.9), 35, 0.6, 0, 0); }
+    100% { -fx-effect: dropshadow(gaussian, rgba(52,211,153,0.5), 20, 0.4, 0, 0); }
+}
+
+
+/***********************
+ * Champs de saisie (TextField)
+ ***********************/
+.numberbox {
+    -fx-padding: 0 0 8 0;
+}
+
+.text-field {
+    -fx-background-color: -color-surface, -color-soft;
+    -fx-background-insets: 0, 1;
+    -fx-background-radius: 12, 11;
+    -fx-text-fill: -color-text;
+    -fx-prompt-text-fill: -color-text-dim;
+    -fx-border-color: transparent;
+    -fx-padding: 8 10;
+    -fx-font-weight: 700;
+    -fx-alignment: center;
+}
+
+.text-field:focused {
+    -fx-effect: dropshadow(gaussian, rgba(108,124,255,0.35), 18, 0.3, 0, 0);
+    -fx-background-color: -color-surface, derive(-color-primary, -40%);
+}
+
+.text-field:disabled {
+    -fx-opacity: 0.7;
+}
+
+/***********************
+ * Boutons (général)
+ ***********************/
+.button {
+    -fx-background-color: -color-surface;
+    -fx-text-fill: -color-text;
+    -fx-padding: 10 14;
+    -fx-background-radius: 12px;
+    -fx-border-color: -color-border;
+    -fx-border-radius: 12px;
+    -fx-cursor: hand;
+    -fx-font-weight: 700;
+    -fx-effect: dropshadow(gaussian, -shadow-color, 18, 0.2, 0, 3);
+    -fx-translate-y: 0;
+    -fx-scale-x: 1; 
+    -fx-scale-y: 1;
+}
+
+/* Hover & Pressed */
+.button:hover {
+    -fx-background-color: derive(-color-surface, 8%);
+    -fx-border-color: derive(-color-border, 30%);
+}
+
+.button:pressed {
+    -fx-translate-y: 1;
+    -fx-scale-x: 0.995; 
+    -fx-scale-y: 0.995;
+}
+
+/***********************
+ * Boutons spécifiques
+ ***********************/
+/* Jouer (primaire) */
+#btnPlay {
+    -fx-background-color: linear-gradient(to bottom, -color-primary, -color-primary-2);
+    -fx-border-color: transparent;
+}
+#btnPlay:hover {
+    -fx-background-color: linear-gradient(to bottom, derive(-color-primary, 10%), derive(-color-primary-2, 5%));
+}
+#btnPlay:pressed {
+    -fx-background-color: linear-gradient(to bottom, derive(-color-primary, -5%), derive(-color-primary-2, -10%));
+}
+
+/* Valider (accent) */
+#btnEntry {
+    -fx-background-color: linear-gradient(to bottom, derive(-color-accent, 5%), derive(-color-accent, -8%));
+    -fx-border-color: transparent;
+}
+#btnEntry:hover {
+    -fx-background-color: linear-gradient(to bottom, derive(-color-accent, 15%), derive(-color-accent, 0%));
+}
+#btnEntry:pressed {
+    -fx-background-color: linear-gradient(to bottom, derive(-color-accent, -5%), derive(-color-accent, -15%));
+}
+
+/* Rejouer (succès) */
+#btnReplay {
+    -fx-background-color: linear-gradient(to bottom, derive(-color-success, 5%), derive(-color-success, -10%));
+    -fx-border-color: transparent;
+}
+#btnReplay:hover {
+    -fx-background-color: linear-gradient(to bottom, derive(-color-success, 15%), derive(-color-success, 0%));
+}
+#btnReplay:pressed {
+    -fx-background-color: linear-gradient(to bottom, derive(-color-success, -5%), derive(-color-success, -15%));
+}
+
+/***********************
+ * TableView (historique)
+ ***********************/
+.table-view {
+    -fx-max-height: 180px;  
+    -fx-pref-height: 160px;  
+    -fx-background-color: transparent;
+    -fx-background-insets: 0;
+    -fx-padding: 0;
+    -fx-border-color: -color-border;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-effect: dropshadow(gaussian, -shadow-color, 16, 0.2, 0, 4);
+    -fx-translate-y: 6px; 
+}
+
+.table-view > .column-header-background {
+    -fx-background-color: linear-gradient(to bottom, derive(-color-surface, 10%), derive(-color-surface-2, -5%));
+    -fx-background-radius: 12px 12px 0 0;
+    -fx-padding: 4 6 4 6;
+    -fx-border-color: transparent;
+}
+
+.table-view .column-header,
+.table-view .filler {
+    -fx-size: 34px;
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.table-view .column-header .label {
+    -fx-text-fill: -color-text;
+    -fx-font-weight: 700;
+}
+
+.table-view .table-row-cell {
+    -fx-cell-size: 26px;    
+    -fx-font-size: 12.5px;  
+    -fx-background-color: -color-surface;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
+}
+.table-view .table-row-cell:odd {
+    -fx-background-color: -color-surface-2;
+}
+.table-view .table-row-cell:selected {
+    -fx-background-color: derive(-color-primary, -30%);
+}
+.table-view .table-cell {
+    -fx-text-fill: -color-text;
+    -fx-padding: 8 10;
+    -fx-alignment: CENTER_LEFT;
+    -fx-font-size: 13px;
+    -fx-border-color: transparent;
+    -fx-alignment: CENTER;  
+    -fx-text-alignment: center;
+}
+
+/***********************
+ * Petits bonus UX
+ ***********************/
+/* Rendre les 3 cases chiffres un peu plus grandes et centrées */
+#box1, #box2, #box3 {
+    -fx-font-size: 18px;
+    -fx-pref-width: 44px;
+    -fx-alignment: center;
+}
+
+/* Transition subtile lors de l’affichage (quand visible=true) */
+.app-root > .vbox:shown {
+    -fx-opacity: 1.0;
+}
+
+/* Si tu ajoutes une classe "success" dynamiquement sur la racine lors de la victoire,
+   tu peux déclencher un liseré vert sur la carte : */
+.app-root.success > .vbox {
+    -fx-effect: dropshadow(gaussian, rgba(41,194,127,0.45), 38, 0.35, 0, 8);
+}
+
+/***********************
+ * Scrollbars discrets
+ ***********************/
+.scroll-bar:vertical, .scroll-bar:horizontal {
+    -fx-background-color: transparent;
+    -fx-padding: 2;
+}
+
+.scroll-bar:vertical .thumb,
+.scroll-bar:horizontal .thumb {
+    -fx-background-color: derive(-color-primary, -30%);
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-background-insets: 2;
+}
+
+.scroll-bar:vertical .thumb:hover,
+.scroll-bar:horizontal .thumb:hover {
+    -fx-background-color: derive(-color-primary, -10%);
+}
+
+.scroll-bar:vertical .track,
+.scroll-bar:horizontal .track {
+    -fx-background-color: transparent;
+    -fx-background-radius: 10;
+}
+
+
+/***********************
+ * Sélection clavier
+ ***********************/
+:focused {
+    -fx-focus-color: derive(-color-primary, -25%);
+    -fx-faint-focus-color: rgba(108,124,255,0.20);
+}
+
+
+/* ===== TitleBar personnalisée ===== */
+.titlebar {
+    -fx-background-color: linear-gradient(to bottom, -color-surface, -color-surface-2);
+    -fx-padding: 0 8px 0 20px;
+    -fx-border-color: -color-border;
+    -fx-border-width: 0 0 0 0;
+    -fx-alignment: center-left;
+}
+
+.titlebar-title {
+    -fx-text-fill: -color-text;
+    -fx-font-weight: 700;
+    -fx-font-size: 13px;
+    -fx-opacity: 0.9;
+}
+
+/* Boutons fenêtre */
+.window-btn {
+    -fx-background-color: transparent;
+    -fx-text-fill: -color-text;
+    -fx-font-weight: 800;
+    -fx-font-size: 12px;
+    -fx-padding: 6 10;
+    -fx-background-radius: 8;
+    -fx-cursor: hand;
+    -fx-effect: none;
+    -fx-border-color: transparent;
+}
+
+/* Hover commun : bulle douce dans le thème */
+.window-btn:hover {
+    -fx-background-color: derive(-color-soft, 8%);
+}
+
+/* Pressed : légère enfonce */
+.window-btn:pressed {
+    -fx-background-color: derive(-color-soft, -5%);
+}
+
+/* Close : on garde la cohérence de couleur, mais un hover un peu plus “dangereux” */
+.btn-close:hover {
+    -fx-background-color: linear-gradient(to bottom, #ff6b6b, #e25555);
+    -fx-text-fill: white;
+}
+
+/* Ajuste la séparation du contenu après la titlebar */
+.app-root > .vbox {
+    -fx-padding: 0 28 24 28; /* top remis à 0 pour coller sous la barre */
+}
+
+/* Optionnel : légère ombre sous la titlebar pour séparer visuellement */
+.titlebar {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 12, 0.2, 0, 1);
+}

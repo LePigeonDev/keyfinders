@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<StackPane xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.dev.controllers.UIController"
+           styleClass="app-root">
+
+    <BorderPane>
+
+        <!-- TitleBar vraiment tout en haut -->
+        <top>
+            <HBox fx:id="titleBar" styleClass="titlebar" alignment="CENTER_LEFT" spacing="8" prefHeight="36">
+                <Label text="Key Finders" styleClass="titlebar-title" HBox.hgrow="ALWAYS"/>
+                <Pane HBox.hgrow="ALWAYS"/>
+                <Button fx:id="btnMin"   text="—" styleClass="window-btn btn-min"/>
+                <Button fx:id="btnClose" text="✕" styleClass="window-btn btn-close"/>
+            </HBox>
+        </top>
+
+        <!-- Contenu principal centré -->
+        <center>
+            <VBox spacing="16" alignment="CENTER" maxWidth="360" prefWidth="360">
+
+                <!-- Titre -->
+                <Label text="Key Finders" styleClass="title"/>
+
+                <!-- Affichage -->
+                <HBox alignment="CENTER" styleClass="display-wrapper">
+                    <Label fx:id="winLabel" text="Vous avez gagné !" styleClass="display"
+                           maxWidth="Infinity" visible="false" managed="false"/>
+                </HBox>
+
+                <TableView fx:id="historyTable" prefHeight="260" prefWidth="340" maxWidth="340" minWidth="340" visible="false" managed="false">
+                    <columns>
+                        <TableColumn fx:id="entryUserColumn" text="Essai" prefWidth="170" minWidth="170" maxWidth="170"/>
+                        <TableColumn fx:id="hintColumn" text="Indice" prefWidth="170" minWidth="170" maxWidth="170"/>
+                    </columns>
+                </TableView>
+
+                <!-- box nombre à saisir -->
+                <GridPane hgap="5" vgap="5" styleClass="numberbox" alignment="CENTER">
+                    <TextField fx:id="box1" GridPane.columnIndex="0" prefColumnCount="1"
+                               maxWidth="40" visible="false" managed="false"/>
+                    <TextField fx:id="box2" GridPane.columnIndex="1" prefColumnCount="1"
+                               maxWidth="40" visible="false" managed="false"/>
+                    <TextField fx:id="box3" GridPane.columnIndex="2" prefColumnCount="1"
+                               maxWidth="40" visible="false" managed="false"/>
+                </GridPane>
+
+                <!-- Lancer / Rejouer / Supprimer -->
+                <GridPane hgap="5" vgap="5" styleClass="numberbox" alignment="CENTER">
+                    <Button fx:id="btnPlay" text="Jouer" onAction="#toggleElement"/>
+                    <Button fx:id="btnEntry" text="Valider" onAction="#validateEntryUser"
+                            visible="false" managed="false"/>
+                    <Button fx:id="btnReplay" text="Rejouer" onAction="#replay"
+                            visible="false" managed="false"/>
+                </GridPane>
+
+            </VBox>
+        </center>
+    </BorderPane>
+</StackPane>
